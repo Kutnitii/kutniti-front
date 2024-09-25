@@ -2,7 +2,7 @@ from dash import html, dcc
 import pandas as pd
 from dash import html, dcc, callback, Input, Output
 import plotly.express as px
-
+from dash.dependencies import Input, Output
 from utils.data_processing import df;
 
 #def create_map_layout():
@@ -27,7 +27,8 @@ fig = px.choropleth(df,
                     color="valeur", 
                     projection="equirectangular",
                     color_continuous_scale=color_scale,
-                    range_color=[0,100]
+                    range_color=[0,100],
+                    height=1000, width=1800
                    )
 
 fig.update_geos(showcoastlines=True, coastlinecolor="Black",
@@ -35,28 +36,31 @@ fig.update_geos(showcoastlines=True, coastlinecolor="Black",
                 showocean=True, oceancolor="#26232C",
                 showcountries=True, countrycolor="black",
                 showlakes=True, lakecolor="#26232C",
-                center=dict(lat=0, lon=0),
-                projection_scale=3.5,
-                fitbounds="locations",
-                )
+                center=dict(lat=12, lon=10),
+                projection_rotation=dict(lon=0, lat=0),
+                projection_scale=1.5,
+                framecolor="#26232C")
 
 fig.update_layout(coloraxis_showscale=False,
                   margin=dict(l=0, r=0, t=0, b=0),
                   paper_bgcolor="#26232C",
                   plot_bgcolor="#26232C",
                   dragmode='zoom',
-                  xaxis=dict(range=[0, 0]),
-                  yaxis=dict(range=[0, 0])
+                  autosize=True,                  
                   )
 
 def create_map_layout():
-    #print(df)
-    return html.Div(
-        html.Div(
-        dcc.Graph(figure=fig, id='world-map',config=
-                  {
-            'displayModeBar':False,
-            'scrollZoom':True
-                  }) 
-        , className="map")
-        ,  className="map-container")
+    return html.Div([
+                    html.Div(
+                        html.Div(
+                            dcc.Graph(figure=fig, id='world-map',config=
+                             {
+                                'displayModeBar':False,
+                             }) 
+                            , className="map")
+                        , className="map-container"),
+                     html.Div(className="bottom_darkening"),
+                     html.Div(className="right_darkening"),
+                     html.Div(className="left_darkening")]
+                    )
+
