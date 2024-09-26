@@ -7,7 +7,11 @@ from callbacks.map_callbacks import register_callbacks
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
-app.layout = create_main_layout()
+app.layout = html.Div([
+    dcc.Location(id='url'),
+    html.Div(id='viewport-size', style={'display': 'none'}),  # Hidden div to store the viewport size
+    create_map_layout()
+])
 
 @app.callback(
     Output('page-content', 'children'),
@@ -21,6 +25,17 @@ def display_page(pathname):
             return about_layout()
         case _:
             return home_layout()
+
+app.clientside_callback(
+    """
+    function(href) {
+        return JSON.stringify({'height': window.innerHeight, 'width': window.innerWidth});
+    }
+    """,
+    Output('viewport-size', 'children'),
+    Input('url', 'href')
+)
+
 
 register_callbacks(app)
 

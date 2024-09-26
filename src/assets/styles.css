@@ -4,6 +4,9 @@ body {
     color: #c7c7c7;
     margin: 0;
     padding: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .nav-link {
@@ -18,26 +21,23 @@ body {
 }
 
 .map-container {
+    width: 100%;
+    height: 100%;       
     display: flex;
-    width: 98vw;
-    height: 80vh;
-    padding: 10px;
-    padding-bottom: 75px;
-    bottom: 0;
     justify-content: center;
     align-items: center;
     position: absolute;
-    background-color:#26232C;
     box-shadow: 0px 0px 0px 2px #000;
 }
 
 .map{
- 
-    width: 100vw;
-    height: 90vh;
-    align-items: center;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    scale: 200%;
     bottom: 0;
-    background-color: #26232C;
+    align-items: center;
     justify-content: center;
     align-items: center;
 }
@@ -77,27 +77,31 @@ body {
 }
 
 .bottom_darkening{
-    position: sticky;
+    position: absolute;
     bottom:0;
     background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-    height: 10vh;
+    height: 5vh;
     width: 100vw;
 }
 
 .left_darkening{
-    position: sticky;
+    position: absolute;
     left:0;
     bottom: 0;
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
     height: 95vh;
-    width: 10vw;
+    width: 5vw;
 }
 
-.rigth_darkening{
-    position: sticky;
-    right:0;
+.right_darkening{
+    position:  absolute;
+    left: 95vw;
     bottom:0;
     background: linear-gradient(-90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
     height: 95vh;
-    width: 10vw;
+    width: 5vw;
+}
+
+rect {
+    fill: rgba(255, 255, 255, 0) !important/* Make fill transparent */
 }

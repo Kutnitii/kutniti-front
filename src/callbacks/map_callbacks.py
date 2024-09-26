@@ -5,8 +5,9 @@ from config import Config
 import plotly.express as px
 from dash import html
 from layouts.map_layout import fig;
+import json
 
-prev_scale = 1.5; 
+prev_scale = 1.2; 
 prev_lat = None; 
 
 def register_callbacks(app):
@@ -189,9 +190,26 @@ def register_callbacks(app):
 
         return fig, {'display': 'block'}
         
-    
+    @app.callback(
+    Output('world-map', 'figure'),
+    Input('world-map', 'relayoutData')
+    )
+    def update_zoom(relayout_data):
+        if (relayout_data):
+                for key, value in relayout_data.items():
+                    if key.startswith('geo.'):
+                # Extract the relevant part of the key and create a dictionary for update
+                        property_name = key.split('.')[1:]  # Get the part after 'geo.'
+                        property_dict = {'.'.join(property_name): value}
+                
+                        try:
+                    # Dynamically update the property
+                            fig.update_geos(**property_dict)
+                        except Exception as e:
+                            print(f"Error updating {property_name} with value {value}: {e}")
+        return fig
 
-
+    """
     @app.callback(
     Output('world-map', 'figure'),
     Input('world-map', 'relayoutData')
@@ -221,23 +239,30 @@ def register_callbacks(app):
                 current_scale = relayout_data['geo.projection.scale']
             
         # Enforce zoom limits
-                if current_scale < 1.5:
-                    current_scale = 1.5  # Minimum zoom level
-                elif current_scale > 3:
-                    current_scale = 3  # Maximum zoom level
+                if current_scale < 1.2:
+                    current_scale = 1.2  # Minimum zoom level
+                elif current_scale > 2.5:
+                    current_scale = 2.5  # Maximum zoom level
                 prev_scale = current_scale  # Update the previous scale
                 fig.update_geos(projection_scale=current_scale)
                 
             if ('geo.center.lat' in relayout_data):
                 current_lat = relayout_data['geo.center.lat']
-                if current_lat < 1:
-                    current_lat = -18*prev_scale # Minimum lat level
-                elif current_lat > 20:
-                    current_lat = 20*prev_scale
+                if current_lat < -1*prev_scale:
+                    current_lat = -1*prev_scale # Minimum lat level
+                elif current_lat > 1*prev_scale:
+                    current_lat = 1*prev_scale
                 prev_lat = current_lat
                 fig.update_geos(center_lat=current_lat)
 
-        
+            if ('geo.center.lon' in relayout_data):
+                current_lon = relayout_data['geo.center.lon']
+                if current_lon > 180:
+                    current_lon = 180
+                elif current_lon < -180:
+                    current_lon = -180
+                
+                fig.update_geos(center_lon=current_lon)
             
             return fig
         else:
@@ -255,3 +280,4 @@ def register_callbacks(app):
                         except Exception as e:
                             print(f"Error updating {property_name} with value {value}: {e}")
             return fig
+    """

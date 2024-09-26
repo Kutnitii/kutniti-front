@@ -8,10 +8,10 @@ def create_main_layout():
             dcc.Link("Accueil", href="/", className='nav-link'),
             dcc.Link("Carte Interactive", href="/carte", className='nav-link'),
             dcc.Link("À propos", href="/about", className='nav-link')
-            ], style={'display': 'flex', 'justifyContent': 'center', 'padding': '10px', 'backgroundColor': '#C3C3C3'}
+            ], style={'display': 'flex', 'justifyContent': 'center', 'padding': '10px', 'backgroundColor': '#C3C3C3', 'z-index':'99'}
                  ),
         html.Div(id='page-content'),
-        ]
+        ], id="viewport-size"
         )
 
 def home_layout():
