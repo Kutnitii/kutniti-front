@@ -59,5 +59,5 @@ def create_map_layout():
         html.Div(className="bottom_darkening"),
         html.Div(className="right_darkening"),
         html.Div(className="left_darkening")
-    ], className='map-container')
+    ])
 
