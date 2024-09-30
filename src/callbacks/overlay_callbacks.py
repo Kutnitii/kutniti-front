@@ -4,17 +4,18 @@ import pandas as pd
 from config import Config
 import plotly.express as px
 from dash import html
-
+from layouts.overlay_layout import create_overlayout;
+from utils.data_processing import data_world_sunbrust;
 
 def overlay_layout(app):
     @app.callback(
-    Output('Title_graph', 'children'),
+    Output('content_overlay', 'children'),
     Input('world-map', 'clickData')
     )
-    def change_title_upon_selection(clickData):
-        if clickData:
-            print(clickData)
-            return f"Perception of India in {clickData['points'][0]['location']}"
-        else:
-            return f"Perception of India in World"
+    def update_overlay(clickData):
+        if (clickData):
+            return create_overlayout(clickData['points'][0]['location'])
+        return create_overlayout()
+
+
 

@@ -49,23 +49,25 @@ def create_overlayout(name_country="World"):
         autosize=True,
         uirevision='constant',
         annotations=[dict(text=name_country, x=0.5, y=0.5,
-                      font_size=40, font_color='#FFFFFF',showarrow=False, xanchor="center")],
+                      font_size=40, font_color='#FFFFFF',font_family='Oswald',showarrow=False, xanchor="center")],
         font=dict(
         size=20,
-        weight='bold'
+        weight='bold',
+        family="Oswald"
     )
+        
         
     )
 
     return html.Div([
-        html.Div(f"Perception of India in {name_country}",id="Title_graph", className="text_info"),
+        html.Div(f"Perception of India",id="Title_graph", className="text_info"),
         dcc.Graph(
             id='pie_chart', 
             figure=fig, 
             config={'staticPlot': True, 'displayModeBar': False}, 
             className="sunburst"
         ),
-        html.Div(f"Number of Articles: {data_world_sunbrust['nbr_articles'].values[0]}", className="text_info"),
+        html.Div(f"Number of Articles: {data_world_sunbrust.loc[data_world_sunbrust['name'] == name_country]['nbr_articles'].values[0]}", className="text_info"),
         html.Div("More Details",id="More_info", className="more_info"),
         html.Div(id='log-output'),
-    ], className="overlay")
+    ],id="content_overlay", className="overlay")
