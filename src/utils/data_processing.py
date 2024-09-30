@@ -5,3 +5,6 @@ def load_data(path):
 
 
 df = load_data("./data/donnees_pays.csv")
+
+
+data_world_sunbrust = load_data("./data/donnees_sun.csv")

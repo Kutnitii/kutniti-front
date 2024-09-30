@@ -17,13 +17,13 @@ body {
 }
 
 .nav-link:hover {
-    color: #E1A014;
     text-decoration: underline;
 }
 
 .map-container {
     width: 100%;
-    height: 100%;       
+    height: 100%;
+    scale: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,17 +31,25 @@ body {
     box-shadow: 0px 0px 0px 2px #000;
 }
 
-.map{
+.map {
     display: flex;
     position: relative;
     width: 100%;
     height: 100%;
-    scale: 200%;
+    scale: 1;
     bottom: 0;
     align-items: center;
     justify-content: center;
     align-items: center;
 }
+
+#world-map-container {
+    overflow: visible;
+    transform: scale(2);
+    transform-origin: center;
+}
+
+
 
 #details-pays {
     background-color: #26232C;
@@ -77,39 +85,40 @@ body {
     margin: 0;
 }
 
-.bottom_darkening{
+.bottom_darkening {
     position: absolute;
-    bottom:0;
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
     height: 5vh;
     width: 100vw;
 }
 
-.left_darkening{
+.left_darkening {
     position: absolute;
-    left:0;
+    left: 0;
     bottom: 0;
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
     height: 97vh;
     width: 5vw;
 }
 
-.right_darkening{
-    position:  absolute;
+.right_darkening {
+    position: absolute;
     left: 95vw;
-    bottom:0;
-    background: linear-gradient(-90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    bottom: 0;
+    background: linear-gradient(-90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
     height: 97vh;
     width: 5vw;
 }
 
 
 rect {
-    fill: rgba(255, 255, 255, 0) !important/* Make fill transparent*/ 
+    fill: rgba(255, 255, 255, 0) !important
+        /* Make fill transparent*/
 }
 
-.header{
-    position:absolute;
+.header {
+    position: absolute;
     width: 100vw;
     height: 3vh;
     display: flex;
@@ -117,11 +126,11 @@ rect {
     align-items: center;
     background-color: #C7C7C7;
     box-shadow: 0px 0px 15px 5px #000;
-    top:0;
+    top: 0;
     z-index: 99;
 }
 
-.navigation{
+.navigation {
     width: 60vw;
     height: 3vh;
     display: flex;
@@ -129,26 +138,160 @@ rect {
     align-items: center;
 }
 
-.kutniti_logo{
-    left:0;
+.kutniti_logo {
+    left: 0;
     display: flex;
     align-items: center;
     width: 20vw;
     height: 3vh;
 }
 
-.social_button{
-    border:none;
-    background-color:transparent;
+.social_button {
+    border: none;
+    background-color: transparent;
+    border-radius: 50;
 }
 
-.social{
+.social_button:hover {
+    cursor: pointer;
+}
+
+.social {
     display: flex;
-    top:0;
+    top: 0;
     right: 0;
     width: 20vw;
     height: 3vh;
     flex-direction: row;
     align-content: center;
     justify-content: center;
+}
+
+.overlay {
+    position: absolute;
+    width: 25vw;
+    height: 97vh;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(38, 35, 44, 0.4);
+    box-shadow: 4px 0px 4px 2px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+
+.sunburst {
+    position: relative;
+    display: flex;
+    margin-top: 3vh;
+    flex: 2;
+}
+
+.text_info {
+    position: relative;
+    display: flex;
+    flex: 1;
+    color: #ffffff;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.more_info {
+    position: relative;
+    display: flex;
+    flex: 0.7;
+    color: #ffffff;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    transition: all 250ms;
+}
+
+.more_info:hover {
+    text-decoration: underline;
+    color: #E1A014;
+    cursor: pointer;
+}
+
+.tool_bar{
+    position: absolute;
+    width: 30vw;
+    height: 12vh;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(243, 243, 243, 0.1);
+    box-shadow: -4px -4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-top-left-radius: 25px;
+    backdrop-filter: blur(4px);
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider{
+    display: flex;
+    position: relative;
+    flex: 1;
+    width: 10vw;
+    margin-top: 0.5vh;
+}
+
+.slider .rc-slider-rail {
+    background: linear-gradient(to right, #CD1313 0%, #E1A014 50%, #5BCB15 100%);
+}
+
+.slider .rc-slider-dot {
+    background-color: #ffffff;
+}
+
+.slider .rc-slider-tooltip {
+    color: #ffffff;
+    border: #ffffff;
+}
+
+.slider .rc-slider-handle {
+    color: #ffffff;
+    border: #000;
+}
+
+.calendar{
+    display: inline-flex;
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    background-image: url("./round-calendar_today-64.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:70%;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: #ffffff;
+    margin-right: 1vw;
+    margin-bottom: 2vh;
+}
+.calendar:hover{
+    cursor: pointer;
+}
+
+.search_bar{
+    display: flex;
+    position: relative;
+    height: 5vh;
+    border-radius: 25px;
+    border: #ffffff;
+    text-indent: 30px;
+    place-content: "coucou";
+    background-image: url("./magnifying-glass-3-16.png");
+    background-position-x: 10px ;
+    background-position-y: center ;
+    background-repeat: no-repeat;
+    margin-right: 1vw;
+    margin-bottom: 2vh;
 }

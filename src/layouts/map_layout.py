@@ -1,5 +1,4 @@
 from dash import html, dcc
-from dash import html, dcc
 import plotly.express as px
 from utils.data_processing import df;
 import dash_bootstrap_components as dbc
@@ -27,6 +26,7 @@ fig = px.choropleth(df,
                     projection="equirectangular",
                     color_continuous_scale=color_scale,
                     range_color=[0,100],
+                    height=900, width=1800
                    )
 
 fig.update_geos(showcoastlines=True, coastlinecolor="Black",
@@ -35,17 +35,20 @@ fig.update_geos(showcoastlines=True, coastlinecolor="Black",
                 showcountries=True, countrycolor="black",
                 showlakes=True, lakecolor="#26232C",
                 projection_rotation=dict(lon=0, lat=0),
-                projection_scale=1.2,
+                projection_scale=1.5,
                 framecolor="#26232C")
 
 fig.update_layout(coloraxis_showscale=False,
                   margin=dict(l=0, r=0, t=0, b=0),
                   paper_bgcolor='rgba(255,0,0,0)',
-                    plot_bgcolor='rgba(0,255,0,0)',
+                  plot_bgcolor='rgba(0,255,0,0)',
                   dragmode='zoom',
                   autosize=True,
                   uirevision='constant'               
                   )
+
+
+
 
 def create_map_layout():
     return dbc.Container([
@@ -53,11 +56,18 @@ def create_map_layout():
             dbc.Container(
                 dcc.Graph(id='world-map', config={
                     'displayModeBar': False,
-                }),
+                    }),
                 className="map"),
             className="map-container"),
+        
         html.Div(className="bottom_darkening"),
         html.Div(className="right_darkening"),
-        html.Div(className="left_darkening")
+        html.Div(className="left_darkening"),
+        
+        html.Div([
+            dcc.Slider(id='my-slider',min=0,max=100,step=1,value=100,marks={i: f"{i}%" for i in [100, 0]},included=False,tooltip={"placement": "bottom", "always_visible": True},className="slider"),
+            html.Button(className="calendar"),
+            dcc.Input(className="search_bar", placeholder="Search for keywords"),
+        ], className="tool_bar")
     ])
 
