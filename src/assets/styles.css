@@ -54,7 +54,7 @@ body {
 
 
 #details-pays {
-    background-color: #26232C;
+    background-color: rgb(38, 35, 44);
     padding: 5px 5px 5px 15px;
     border-radius: 5px;
     color: #c7c7c7;
@@ -233,6 +233,11 @@ rect {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    transform: 'background-color' 400ms;
+}
+.tool_bar:hover{
+    background-color: rgba(38, 35, 44, 0.9);
+
 }
 
 .slider{
@@ -244,7 +249,11 @@ rect {
 }
 
 .slider .rc-slider-rail {
-    background: linear-gradient(to right, #CD1313 0%, #E1A014 50%, #5BCB15 100%);
+    background: linear-gradient(to right,#CD1313  0%, #E1A014 50%,  #5BCB15 100%);
+}
+
+.slider .rc-slider-track-1{
+    opacity: 0;
 }
 
 .slider .rc-slider-dot {

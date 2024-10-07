@@ -3,7 +3,7 @@ from dash import html
 from dash.dependencies import Input, Output
 
 
-def social_callback(app):
+def social_callbacks(app):
     
     @app.callback(
     Output('url', 'href', allow_duplicate=True),

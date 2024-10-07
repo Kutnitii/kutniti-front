@@ -2,12 +2,13 @@ from dash import html, dcc
 import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
 import pandas as pd
-from utils.data_processing import data_world_sunbrust;
+from utils.data_processing import df;
 
 color_scale = [ '#5BCB15','#E1A014','#CD1313'] 
 
 def create_overlayout(name_country="World"):
-    filtered_df = data_world_sunbrust.loc[data_world_sunbrust['name'] == name_country]
+    print(name_country)
+    filtered_df = df.loc[df['name'] == name_country]
 
     if filtered_df.empty:
         return html.Div([
@@ -67,7 +68,8 @@ def create_overlayout(name_country="World"):
             config={'staticPlot': True, 'displayModeBar': False}, 
             className="sunburst"
         ),
-        html.Div(f"Number of Articles: {data_world_sunbrust.loc[data_world_sunbrust['name'] == name_country]['nbr_articles'].values[0]}", className="text_info"),
+        html.Div(f"Number of Articles : {df.loc[df['name'] == name_country]['nbr_articles'].values[0]}", className="text_info"),
         html.Div("More Details",id="More_info", className="more_info"),
         html.Div(id='log-output'),
+        dcc.Store(id='stored-click-data'),
     ],id="content_overlay", className="overlay")

@@ -1,4 +1,4 @@
-code_pays,nom_pays,valeur,population,pib,positive,neutral,negative
+code_pays,nom_pays,sentiment,population,pib,positive,neutral,negative
 FRA,France,50,67391582,2715518,10,20,70
 USA,USA,91,331002651,21433225,10,25,65
 CHN,China,85,1439323776,14342903,50,20,30
